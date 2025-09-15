@@ -3,20 +3,15 @@ from __future__ import annotations
 
 def somme(a: int, b: int) -> int:
     """Retourne la somme de deux entiers."""
-    # TODO
-    raise NotImplementedError
-
+    return a+b
 
 def produit(a: int, b: int) -> int:
     """Retourne le produit de deux entiers."""
-    # TODO
-    raise NotImplementedError
-
+    return a*b
 
 def est_pair(n: int) -> bool:
     """Vrai si le nombre est pair."""
-    # TODO
-    raise NotImplementedError
+    return n%2==0
 
 def est_voyelle(lettre: str) -> bool:
     """Vrai si la lettre est une voyelle."""
