@@ -192,7 +192,7 @@ def test_trouver_valeur_maximale():
 
 
 def test_trouver_cle_par_valeur():
-    assert trouver_cle_par_valeur({"a": 1, "b": 2, "c": 3}, 2) == "b"
+    assert trouver_cle_par_valeur({"a": 1, "b": 2, "c": 3}, 2) == ["b"]
 
 
 def test_verifier_cle_existe():
