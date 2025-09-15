@@ -1,33 +1,31 @@
 from __future__ import annotations
 
+import math
 
 def somme(a: int, b: int) -> int:
     """Retourne la somme de deux entiers."""
-    # TODO
-    raise NotImplementedError
-
+    return a+b
 
 def produit(a: int, b: int) -> int:
     """Retourne le produit de deux entiers."""
-    # TODO
-    raise NotImplementedError
-
+    return a*b
 
 def est_pair(n: int) -> bool:
     """Vrai si le nombre est pair."""
-    # TODO
-    raise NotImplementedError
+    return n%2==0
 
 def est_voyelle(lettre: str) -> bool:
     """Vrai si la lettre est une voyelle."""
-    # TODO
-    raise NotImplementedError
+    return lettre.lower() in 'aeiouy'
 
 def calcul_reduction(prix: float, taux: float) -> float:
     """Retourne le prix après remise (taux en pourcentage)."""
-    # TODO
-    raise NotImplementedError
-
+    if prix < 0 :
+        raise ValueError
+    if taux//100.0 : # remise de 100% or more
+        return 0.0
+    else :
+        return prix*(1.0 - taux/100.0)
 
 def est_bissextile(annee: int) -> bool:
     """Vrai si année bissextile (Grégorien).
@@ -38,17 +36,18 @@ def est_bissextile(annee: int) -> bool:
         - 1900 n'est pas bissextile (divisible par 100 mais pas par 400).
         - 2004 est bissextile (divisible par 4 mais pas par 100).
     """
-    raise NotImplementedError
+    return (annee%4==0 and annee%100!=0) or annee%400==0
 
 def racine_carree(x: float) -> float:
     """Retourne la racine carrée d'un nombre."""
-    # TODO
-    raise NotImplementedError
+    return math.sqrt(x)
 
 def maximum_trois(a: int, b: int, c: int) -> int:
     """Renvoie le maximum de trois valeurs sans utiliser max()."""
-    # TODO
-    raise NotImplementedError
+    x = a
+    if x < b: x = b
+    if x < c: x = c
+    return x
 
 def factorielle(n: int) -> int:
     """Retourne la factorielle d'un entier.
@@ -59,11 +58,18 @@ def factorielle(n: int) -> int:
        - Multiplier le résultat actuel par i.
     4. Retourner le résultat.
     """
-    # TODO
-    raise NotImplementedError
+    if n<0:
+        raise ValueError("Valeur négative impossible")
+    res = 1
+    for i in range(2, n+1):
+        res*=i
+    return res
+
 
 def convertir_en_binaire(n: int) -> str:
     """Convertit un entier en représentation binaire."""
-    # TODO
-    raise NotImplementedError
-
+    nbin = str(n%2) + nbin
+    while n>1:
+        n //= 2
+        nbin = str(n%2) + nbin
+    return nbin
