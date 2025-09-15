@@ -1,35 +1,49 @@
 from __future__ import annotations
+import sys
+sys.path.append("/home/inmortalis_legatus/Knowledge/Cursus/Formation-CDA_Handigital/Algorithmique/algo_bases/tools")
+from measure_time import *
+
+def time(base: callable, new: callable, *args, **kwargs):
+    t_base = measure_time(base, *args, **kwargs)[1]
+    t_new = measure_time(new, *args, **kwargs)[1]
+    diff = t_base - t_new
+    res = "old "+ str(t_base) +" \nnew "+ str(t_new) +"\n"
+    print(res + ("Gain de " if diff>0 else "Perte de ") + str(abs(diff)) +" secondes")
+    return None
 
 # Prise en main
 # Exemples simples : Création d'une fonction et appel
-def print_hello_world() -> None:
-    # Une fonction qui affiche "Hello, world!"
-    raise NotImplementedError
-
+def print_hello_world() -> str:
+    # Une fonction qui affiche "Hello, World!"
+    print("Hello, World!")
+    return "Hello, World!"
 
 def reverse_string(param: str) -> str:
     # Une fonction qui renverse une chaîne donnée en entrée.
-    raise NotImplementedError
+    res=""
+    for c in reversed(param):
+        res+=c
+    return res
 
 
 def to_uppercase(param: str) -> str:
     # Une fonction qui transforme une chaîne en majuscules.
-    raise NotImplementedError
+    return param.upper()
 
 
 def count_substring(param: str, sub: str) -> int:
     # Une fonction qui compte le nombre d'occurrences d'une sous-chaîne dans une chaîne.
-    raise NotImplementedError
+    return param.count(sub)
 
 
 def list_length(param: list[int]) -> int:
     # Une fonction qui retourne le nombre d'éléments dans une liste d'entiers.
-    raise NotImplementedError
+    return len(param)
 
 
 def max_in_list(param: list[int]) -> int:
     # Une fonction qui retourne le plus grand élément dans une liste d'entiers.
-    raise NotImplementedError
+    return max(param)
 
 
 # Fonctions classiques
@@ -41,15 +55,27 @@ def pgcd(a: int, b: int) -> int:
     # - Lorsque b devient nul, le PGCD est la valeur actuelle de a.
     # Une division euclidienne consiste à diviser deux nombres entiers a et b (b ≠ 0) pour obtenir un
     # quotient q et un reste r, tels que : a = b * q + r, avec 0 ≤ r < |b|.
-    raise NotImplementedError
+    while b!=0:
+        tmp = b
+        b = a%b
+        a = tmp
+    return a
 
 
 def fibonacci(n: int) -> int:
     # La suite de Fibonacci est une suite de nombres où chaque terme est la somme des deux termes précédents,
     # en commençant par 0 et 1. Par exemple : 0, 1, 1, 2, 3, 5, 8, ...
     # À FAIRE : Calculer le nième nombre de Fibonacci de manière itérative.
-    raise NotImplementedError
-
+    if n==0:
+        return 0
+    res = 1
+    old = 1
+    while n>2:
+        tmp = res
+        res += old
+        old = tmp
+        n-=1
+    return res
 
 def crible_eratosthene(n: int) -> list[int]:
     # À FAIRE : Implémenter le crible d'Ératosthène pour générer tous les nombres premiers jusqu'à n.
@@ -59,7 +85,24 @@ def crible_eratosthene(n: int) -> list[int]:
     # 3. Parcourir les entiers p de 2 à √n (inclus).
     # 4. Si p est premier (booléen True), alors marquer tous ses multiples (p*p jusqu'à n) comme False.
     # 5. Extraire les indices marqués True dans la liste et les retourner sous forme de liste de nombres premiers.
-    raise NotImplementedError
+    res = []
+    if n >= 2:
+        nb = [True]*(n+1)
+        nb[0] = False; nb[1] = False;
+        i = 2
+        
+        end= round(pow(n,0.5)) +1
+        while i < end:
+            if nb[i]:
+                res.append(i)
+                for p in range(i*2, n+1, i):
+                    nb[p] = False
+            i+=1
+
+        for x in range(i, n+1):
+            if nb[x]:
+                res.append(x)
+    return res
 
 
 def is_prime(n: int) -> bool:
@@ -74,13 +117,32 @@ def is_prime(n: int) -> bool:
     #    - Si n est divisible par le diviseur ou diviseur + 2, retourner False.
     #    - Incrémenter le diviseur de 6 à chaque tour (car les nombres premiers > 3 sont de la forme 6k ± 1).
     # 5. Si aucune des conditions précédentes n'a permis d'établir que n n'est pas premier, retourner True.
-    raise NotImplementedError
+    if n <=1:
+        return False
+    elif n==2 or n==3:
+        return True
+    elif n%2==0 or n%3==0:
+        return False
+    div = 5
+    while not( n%div == 0 or n%(div+2) == 0 ):
+        if pow(div, 2) > n:
+            return True
+        div += 6
+    else:
+        return False
 
 
 def is_palindrome(s: str) -> bool:
     # Un palindrome est une chaîne qui se lit de la même manière à l'endroit et à l'envers.
     # À FAIRE : Vérifier si une chaîne donnée est un palindrome en utilisant l'itération.
-    raise NotImplementedError
+    if len(s)<2:
+        return True
+    s=s.replace(' ','')
+    s=s.lower()
+    for i in range(0, len(s)//2):
+        if s[i] != s[-i-1]:
+            return False
+    return True
 
 
 def binary_search(arr: list[int], target: int) -> int:
